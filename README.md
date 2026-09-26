@@ -6,7 +6,7 @@
 
 ## Установка
 
-Устанавливать ничего не нужно, достаточно Python 3.9 или новее. Склонируйте репозиторий и запускайте Python из его корня:
+Устанавливать ничего не нужно, достаточно Python 3.9 или новее. Склонируйте репозиторий и перейдите в него:
 
 ```bash
 git clone https://github.com/wFeeL/number-theory.git
@@ -14,6 +14,8 @@ cd number-theory
 ```
 
 ## Пример использования
+
+Сохраните код в файл `example.py` в корне репозитория:
 
 ```python
 from numtheory.primes import factorize
@@ -24,6 +26,14 @@ print(factorize(360))      # [2, 2, 2, 3, 3, 5]
 print(gcd(84, 36))         # 12
 print(fibonacci_list(8))   # [0, 1, 1, 2, 3, 5, 8, 13]
 ```
+
+и запустите его:
+
+```bash
+python3 example.py
+```
+
+Если запустить файл из другой папки, Python не найдёт пакет `numtheory` и выдаст `ModuleNotFoundError`.
 
 ## Документация
 
