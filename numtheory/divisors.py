@@ -1,4 +1,5 @@
 from numtheory._validation import ints_only
+from numtheory.primes import factorize
 
 
 @ints_only
@@ -90,3 +91,31 @@ def is_perfect(number: int) -> bool:
     if number < 2:
         return False
     return sum(divisors(number)) - number == number
+
+
+@ints_only
+def euler_phi(number: int) -> int:
+    '''
+    Вычисляет функцию Эйлера: количество чисел от 1 до number, взаимно простых с number.
+    Раскладывает число на простые множители и для каждого различного простого p умножает
+    результат на (1 - 1 / p), то есть заменяет его на result // p * (p - 1). Для единицы
+    ответ равен 1: число 1 взаимно просто с самим собой. Функция определена только для
+    натуральных чисел, поэтому для 0 и отрицательных чисел выбрасывается ValueError,
+    для нецелого аргумента TypeError.
+
+        Параметры:
+            number (int): натуральное число
+
+        Возвращаемое значение:
+            result (int): количество чисел от 1 до number, взаимно простых с number
+    '''
+    if number < 1:
+        raise ValueError("функция Эйлера определена только для натуральных чисел")
+
+    result = number
+    previous = 0
+    for p in factorize(number):
+        if p != previous:
+            result = result // p * (p - 1)
+            previous = p
+    return result
