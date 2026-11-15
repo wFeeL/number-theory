@@ -17,7 +17,11 @@ number-theory/
 │   └── sequences.py
 ├── tests/
 │   ├── __init__.py
-│   └── test_divisors.py
+│   ├── test_divisors.py
+│   ├── test_primes.py
+│   ├── test_sequences.py
+│   ├── test_modular.py
+│   └── test_validation.py
 └── docs/
     ├── overview.md
     ├── functions.md
