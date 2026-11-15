@@ -1,6 +1,7 @@
-from numtheory._validation import check_int
+from numtheory._validation import ints_only
 
 
+@ints_only
 def is_prime(number: int) -> bool:
     '''
     Проверяет, является ли число простым.
@@ -14,7 +15,6 @@ def is_prime(number: int) -> bool:
         Возвращаемое значение:
             result (bool): True, если number простое, иначе False
     '''
-    check_int(number, "number")
     if number < 2:
         return False
     d = 2
@@ -23,6 +23,7 @@ def is_prime(number: int) -> bool:
     return d * d > number
 
 
+@ints_only
 def primes_up_to(number: int) -> list[int]:
     '''
     Возвращает все простые числа от 2 до number включительно.
@@ -36,7 +37,6 @@ def primes_up_to(number: int) -> list[int]:
         Возвращаемое значение:
             prime_numbers (list[int]): простые числа по возрастанию
     '''
-    check_int(number, "number")
     if number < 2:
         return []
 
@@ -57,6 +57,7 @@ def primes_up_to(number: int) -> list[int]:
     return prime_numbers
 
 
+@ints_only
 def factorize(number: int) -> list[int]:
     '''
     Раскладывает целое число на простые множители.
@@ -70,7 +71,6 @@ def factorize(number: int) -> list[int]:
         Возвращаемое значение:
             factors (list[int]): простые множители по возрастанию с повторениями, их произведение равно number
     '''
-    check_int(number, "number")
     if number == 0:
         raise ValueError("0 нельзя разложить на простые множители")
 
