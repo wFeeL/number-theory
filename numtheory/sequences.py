@@ -1,6 +1,7 @@
-from numtheory._validation import check_int
+from numtheory._validation import ints_only
 
 
+@ints_only
 def fibonacci(number: int) -> int:
     '''
     Возвращает число Фибоначчи с номером number.
@@ -16,7 +17,6 @@ def fibonacci(number: int) -> int:
         Возвращаемое значение:
             fib_number (int): число Фибоначчи F(number)
     '''
-    check_int(number, "number")
     if number < 0:
         fib_number = fibonacci(-number)
         return fib_number if number % 2 != 0 else -fib_number
@@ -27,6 +27,7 @@ def fibonacci(number: int) -> int:
     return a
 
 
+@ints_only
 def fibonacci_list(number: int) -> list[int]:
     '''
     Возвращает первые number чисел Фибоначчи, начиная с F(0) = 0.
@@ -40,7 +41,6 @@ def fibonacci_list(number: int) -> list[int]:
         Возвращаемое значение:
             fib_numbers (list[int]): числа F(0), F(1), ..., F(number - 1)
     '''
-    check_int(number, "number")
     if number < 0:
         raise ValueError("количество чисел не может быть отрицательным")
 
@@ -52,6 +52,7 @@ def fibonacci_list(number: int) -> list[int]:
     return fib_numbers
 
 
+@ints_only
 def factorial(number: int) -> int:
     '''
     Вычисляет факториал n! = 1 · 2 · ... · n, по определению 0! = 1.
@@ -64,7 +65,6 @@ def factorial(number: int) -> int:
         Возвращаемое значение:
             result (int): факториал number
     '''
-    check_int(number, "number")
     if number < 0:
         raise ValueError("факториал отрицательного числа не определён")
 
