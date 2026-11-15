@@ -15,6 +15,9 @@ number-theory/
 │   ├── divisors.py
 │   ├── modular.py
 │   └── sequences.py
+├── tests/
+│   ├── __init__.py
+│   └── test_divisors.py
 └── docs/
     ├── overview.md
     ├── functions.md
