@@ -1,8 +1,8 @@
 # number-theory
 
-Небольшая библиотека на Python для теории чисел. Функции разделены на три модуля: `primes` (простые числа и разложение на множители), `divisors` (НОД, НОК и делители) и `sequences` (числа Фибоначчи и факториал).
+Небольшая библиотека на Python для теории чисел. Функции разделены на четыре модуля: `primes` (простые числа и разложение на множители), `divisors` (НОД, НОК, делители и функция Эйлера), `modular` (расширенный алгоритм Евклида, обратные числа по модулю, линейные диофантовы уравнения и китайская теорема об остатках) и `sequences` (числа Фибоначчи и факториал).
 
-Проект сделан для лабораторной работы №2 «Документирование» по курсу «Инструментальные средства разработки ПО».
+Проект используется в лабораторных работах по курсу «Инструментальные средства разработки ПО».
 
 ## Установка
 
@@ -19,12 +19,16 @@ cd number-theory
 
 ```python
 from numtheory.primes import factorize
-from numtheory.divisors import gcd
+from numtheory.divisors import gcd, euler_phi
+from numtheory.modular import mod_inverse, crt
 from numtheory.sequences import fibonacci_list
 
-print(factorize(360))      # [2, 2, 2, 3, 3, 5]
-print(gcd(84, 36))         # 12
-print(fibonacci_list(8))   # [0, 1, 1, 2, 3, 5, 8, 13]
+print(factorize(360))       # [2, 2, 2, 3, 3, 5]
+print(gcd(84, 36))          # 12
+print(euler_phi(36))        # 12
+print(mod_inverse(3, 7))    # 5
+print(crt([2, 3], [3, 5]))  # (8, 15)
+print(fibonacci_list(8))    # [0, 1, 1, 2, 3, 5, 8, 13]
 ```
 
 и запустите его:
