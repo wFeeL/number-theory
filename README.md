@@ -49,6 +49,18 @@ python3 -m unittest -v
 
 На Windows команда такая: `python -m unittest -v`. У каждого теста в docstring есть номер кейса вида `TC-DIV-01`, он виден в выводе с флагом `-v`.
 
+Тесты разложены по файлам, по одному на модуль, плюс отдельный файл на проверку аргументов:
+
+| Файл | Префикс кейсов |
+|---|---|
+| `tests/test_divisors.py` | `TC-DIV` |
+| `tests/test_primes.py` | `TC-PRI` |
+| `tests/test_sequences.py` | `TC-SEQ` |
+| `tests/test_modular.py` | `TC-MOD` |
+| `tests/test_validation.py` | `TC-VAL` |
+
+Команда запуска общая для всех файлов. Нужен Python 3.9 или новее: тесты используют `math.lcm`.
+
 ## Документация
 
 - [Общее описание решения](docs/overview.md)
