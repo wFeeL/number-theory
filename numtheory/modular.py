@@ -103,3 +103,46 @@ def solve_diophantine(a: int, b: int, c: int) -> tuple[int, int, int, int]:
         dx, dy = -dx, -dy
     t = -(x0 // dx)
     return x0 + dx * t, y0 + dy * t, dx, dy
+
+
+@ints_only
+def crt(remainders: list[int], moduli: list[int]) -> tuple[int, int]:
+    '''
+    Решает систему сравнений x = r_i (mod m_i) по китайской теореме об остатках.
+    Модули не обязаны быть попарно взаимно простыми: сравнения объединяются по одному, и система
+    совместна, только если для каждой пары r_i - r_j делится на НОД(m_i, m_j). Результат (x, M)
+    описывает все решения: это числа x + M * t для целого t, где M равно НОК всех модулей,
+    а x лежит в диапазоне 0 <= x < M. Отрицательные остатки допустимы, остаток приводится
+    к классу по модулю. Принимает списки и кортежи. Если длины списков разные, списки пустые,
+    какой-либо модуль меньше 1 или система несовместна, выбрасывается ValueError, для нецелого
+    аргумента или элемента TypeError.
+
+        Параметры:
+            remainders (list[int]): остатки r_i, любые целые числа
+            moduli (list[int]): модули m_i, натуральные числа, по одному на каждый остаток
+
+        Возвращаемое значение:
+            result (tuple[int, int]): пара (x, M), где M = НОК(m_1, ..., m_n), 0 <= x < M,
+            все решения системы это x + M * t
+    '''
+    if len(remainders) != len(moduli):
+        raise ValueError(f"остатков {len(remainders)}, а модулей {len(moduli)}: их должно быть поровну")
+    if len(moduli) == 0:
+        raise ValueError("система пуста: нужен хотя бы один остаток и один модуль")
+    for m in moduli:
+        if m < 1:
+            raise ValueError(f"модуль должен быть натуральным числом, получено {m}")
+
+    x, step = 0, 1
+    for r, m in zip(remainders, moduli):
+        g, _, _ = extended_gcd(step, m)
+        if (r - x) % g != 0:
+            raise ValueError(
+                f"система несовместна: x = {r} (mod {m}) противоречит предыдущим сравнениям, "
+                f"которые дают x = {x} (mod {step})")
+        reduced_modulus = m // g
+        t = (r - x) // g * mod_inverse(step // g, reduced_modulus) % reduced_modulus
+        x += step * t
+        step *= reduced_modulus
+        x %= step
+    return x, step
