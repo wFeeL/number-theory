@@ -1,6 +1,7 @@
-from numtheory._validation import check_int
+from numtheory._validation import ints_only
 
 
+@ints_only
 def gcd(number1: int, number2: int) -> int:
     '''
     Находит наибольший общий делитель двух целых чисел алгоритмом Евклида.
@@ -15,14 +16,13 @@ def gcd(number1: int, number2: int) -> int:
         Возвращаемое значение:
             divisor (int): неотрицательный наибольший общий делитель number1 и number2
     '''
-    check_int(number1, "number1")
-    check_int(number2, "number2")
     number1, number2 = abs(number1), abs(number2)
     while number2 != 0:
         number1, number2 = number2, number1 % number2
     return number1
 
 
+@ints_only
 def lcm(number1: int, number2: int) -> int:
     '''
     Находит наименьшее общее кратное двух целых чисел по формуле |a · b| / gcd(a, b).
@@ -36,13 +36,12 @@ def lcm(number1: int, number2: int) -> int:
         Возвращаемое значение:
             multiple (int): неотрицательное наименьшее общее кратное number1 и number2
     '''
-    check_int(number1, "number1")
-    check_int(number2, "number2")
     if number1 == 0 or number2 == 0:
         return 0
     return abs(number1 * number2) // gcd(number1, number2)
 
 
+@ints_only
 def divisors(number: int) -> list[int]:
     '''
     Возвращает все натуральные делители целого числа.
@@ -56,7 +55,6 @@ def divisors(number: int) -> list[int]:
         Возвращаемое значение:
             divisors_list (list[int]): делители по возрастанию, от 1 до модуля number
     '''
-    check_int(number, "number")
     if number == 0:
         raise ValueError("у 0 бесконечно много делителей")
     number = abs(number)
@@ -75,6 +73,7 @@ def divisors(number: int) -> list[int]:
     return small + large[::-1]
 
 
+@ints_only
 def is_perfect(number: int) -> bool:
     '''
     Проверяет, является ли число совершенным.
@@ -88,7 +87,6 @@ def is_perfect(number: int) -> bool:
         Возвращаемое значение:
             result (bool): True, если number совершенное, иначе False
     '''
-    check_int(number, "number")
     if number < 2:
         return False
     return sum(divisors(number)) - number == number
