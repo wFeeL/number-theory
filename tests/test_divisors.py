@@ -1,4 +1,5 @@
 import math
+import re
 import unittest
 from fractions import Fraction
 from unittest import mock
@@ -382,6 +383,24 @@ class EulerPhiTestCase(unittest.TestCase):
             result = euler_phi(36)
         fake.assert_called_once_with(36)
         self.assertEqual(result, 12)
+
+
+def load_tests(loader, standard_tests, pattern):
+    '''Расставляет тесты по номеру кейса TC-DIV-NN из docstring.'''
+    def flatten(suite):
+        for item in suite:
+            if isinstance(item, unittest.TestSuite):
+                yield from flatten(item)
+            else:
+                yield item
+
+    def case_number(test):
+        found = re.match(r"TC-DIV-(\d+)\.", test.shortDescription() or "")
+        if found is None:
+            raise ValueError("у теста %s нет номера TC-DIV-NN в docstring" % test.id())
+        return int(found.group(1))
+
+    return unittest.TestSuite(sorted(flatten(standard_tests), key=case_number))
 
 
 if __name__ == "__main__":
